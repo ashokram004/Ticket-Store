@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head><title>Signup Status</title></head>   
+<body>
+        
+    
+<?php
+
+$user="ashok";
+$pass="2002";
+
+$conn= mysqli_connect("localhost",$user,$pass,"ticketstore") or die("can't connect somehow :(");
+
+$username = $_REQUEST['username'];
+$mobileno = $_REQUEST['mobileno'];
+$password = $_REQUEST['password'];
+
+$query = "insert into users values('$username','$mobileno','$password')";
+
+if(mysqli_query($conn,$query))
+{
+    echo "<center> Account created successfully :) </center>";
+}
+else
+{
+    $error = strval(mysqli_error($conn));
+   if($error =  "Duplicate entry '$mobileno' for key 'PRIMARY'")
+   {
+      echo "Mobile number already exits :)";
+   }
+else
+{
+    echo mysqli_error($conn);
+}
+}
+
+mysqli_close($conn)
+
+
+?>
+
+
+
+
+
+</body>
+</html>
